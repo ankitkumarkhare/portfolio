@@ -1,84 +1,56 @@
-// Open and close the mobile menu
-const menuIcon = document.querySelector('.menu-icon');
-const nav = document.querySelector('nav');
-
-menuIcon.addEventListener('click', () => {
-  nav.classList.toggle('open');
+// Add event listener to adjust navigation bar on scroll
+window.addEventListener("scroll", function() {
+  var navBar = document.querySelector("header nav");
+  if (window.pageYOffset > 0) {
+    navBar.classList.add("scrolled");
+  } else {
+    navBar.classList.remove("scrolled");
+  }
 });
 
-// Smooth scrolling to anchor links
-const links = document.querySelectorAll('nav a');
+// Add event listener to toggle menu on small screens
+var menuBtn = document.querySelector(".menu-btn");
+var navLinks = document.querySelector("header nav ul");
 
-for (const link of links) {
-  link.addEventListener('click', clickHandler);
-}
+//menuBtn.addEventListener("click", function() {
+ // navLinks.classList.toggle("show");
+// });
 
-function clickHandler(event) {
-  event.preventDefault();
-  const href = this.getAttribute('href');
-  const offsetTop = document.querySelector(href).offsetTop;
+// Add event listener to smooth scroll to sections
+var navLinks = document.querySelectorAll("header nav ul li a");
 
-  scroll({
-    top: offsetTop - 80,
-    behavior: 'smooth'
+for (var i = 0; i < navLinks.length; i++) {
+  navLinks[i].addEventListener("click", function(event) {
+    event.preventDefault();
+    var target = this.getAttribute("href");
+    var targetPos = document.querySelector(target).offsetTop;
+    window.scrollTo({
+      top: targetPos,
+      behavior: "smooth"
+    });
+    navLinks.forEach(function(link) {
+      link.classList.remove("active");
+    });
+    this.classList.add("active");
   });
 }
 
-// Display a modal when a portfolio item is clicked
-const gallery = document.querySelector('.gallery');
-const images = gallery.querySelectorAll('img');
-const modal = document.querySelector('.modal');
-const modalImage = modal.querySelector('img');
+// Add event listener to highlight nav links on scroll
+var sections = document.querySelectorAll("section");
 
-for (const image of images) {
-  image.addEventListener('click', () => {
-    modalImage.src = image.src;
-    modalImage.alt = image.alt;
-    modal.style.display = 'block';
-  });
-}
-
-modal.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
-
-// Dashboard to add and update portfolio items
-const dashboardButton = document.querySelector('.dashboard-button');
-const dashboard = document.querySelector('.dashboard');
-const closeButton = dashboard.querySelector('.close-button');
-const addButton = dashboard.querySelector('.add-button');
-const updateButton = dashboard.querySelector('.update-button');
-const form = dashboard.querySelector('form');
-const galleryGrid = document.querySelector('.gallery');
-
-dashboardButton.addEventListener('click', () => {
-  dashboard.style.display = 'block';
-});
-
-closeButton.addEventListener('click', () => {
-  dashboard.style.display = 'none';
-});
-
-addButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  const input = form.querySelector('input');
-  const src = input.value;
-  const alt = 'Design ' + (galleryGrid.children.length + 1);
-  const image = document.createElement('img');
-  image.src = src;
-  image.alt = alt;
-  galleryGrid.appendChild(image);
-  input.value = '';
-  dashboard.style.display = 'none';
-});
-
-updateButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  const input = form.querySelector('input');
-  const src = input.value;
-  const alt = 'Design ' + (galleryGrid.children.length);
-  galleryGrid.lastChild.src = src;
-  galleryGrid.lastChild.alt = alt;
-  input.value = '';
-  dashboard.style.display = 'none';
+window.addEventListener("scroll", function() {
+  for (var i = 0; i < sections.length; i++) {
+    var section = sections[i];
+    var sectionTop = section.offsetTop - 50;
+    var sectionBottom = sectionTop + section.offsetHeight;
+    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
+      var sectionId = section.getAttribute("id");
+      navLinks.forEach(function(link) {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + sectionId) {
+          link.classList.add("active");
+        }
+      });
+    }
+  }
 });
