@@ -1,3 +1,7 @@
+// function zoomIn() {
+//   document.getElementById("image").style.transform = "scale(2)";
+// }
+
 // Add event listener to adjust navigation bar on scroll
 window.addEventListener("scroll", function() {
   var navBar = document.querySelector("header nav");
@@ -12,9 +16,9 @@ window.addEventListener("scroll", function() {
 var menuBtn = document.querySelector(".menu-btn");
 var navLinks = document.querySelector("header nav ul");
 
-//menuBtn.addEventListener("click", function() {
- // navLinks.classList.toggle("show");
-// });
+// menuBtn.addEventListener("click", function() {
+//  navLinks.classList.toggle("show");
+//  });
 
 // Add event listener to smooth scroll to sections
 var navLinks = document.querySelectorAll("header nav ul li a");

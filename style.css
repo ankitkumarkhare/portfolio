@@ -68,6 +68,9 @@ section {
 .gallery img {
   width: 100%;
   height: auto;
+  transition: transform.2s;
+  
+
 }
 
 form {
@@ -114,4 +117,12 @@ footer {
   background-color: #ddd;
   padding: 20px;
   text-align: center;
+}
+
+#image{
+  transition:transform .2s;
+  
+  }
+#image:hover {
+  transform: scale(1.1);
 }
